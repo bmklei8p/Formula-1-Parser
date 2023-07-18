@@ -3,7 +3,6 @@ import requests
 
 
 class DriverParser:
-  # list of all the driver urls to scrape
   def __init__(self, url):
     self.url = url
   
@@ -53,7 +52,6 @@ class DriverParser:
         driver = 'unknown'
     return driver
 
-  # URL of the page to be scraped
   def get_driver_information_from_urls(self, urls):
     result = {}
     stats_needed = {
@@ -63,7 +61,6 @@ class DriverParser:
       'world_championships': True,
       "highest_race_finish": True,
       "highest_grid_position": True,
-      "pole_positions": True,
     }
 
     for url in urls:
@@ -92,14 +89,15 @@ class DriverParser:
 
     return result
 
-
   def driver_update(self, urls):
     # hard coded data to avoid scrappping while building
-    # driver_info = {'max_verstappen': {'podiums': '87', 'points': '2266.5', 'grands_prix_entered': '173', 'world_championships': '2', 'highest_race_finish': '1 (x43)', 'highest_grid_position': '1'}, 'hamilton': {'podiums': '195', 'points': '4526.5', 'grands_prix_entered': '320', 'world_championships': '7', 'highest_race_finish': '1 (x103)', 'highest_grid_position': '1'}, 'albon': {'podiums': '2', 'points': '212', 'grands_prix_entered': '69', 'world_championships': 'N/A', 'highest_race_finish': '3 (x2)', 'highest_grid_position': '4'}, 'hulkenberg': {'podiums': 'N/A', 'points': '530', 'grands_prix_entered': '194', 'world_championships': 'N/A', 'highest_race_finish': '4 (x3)', 'highest_grid_position': '1'}, 'perez': {'podiums': '31', 'points': '1357', 'grands_prix_entered': '246', 'world_championships': 'N/A', 'highest_race_finish': '1 (x6)', 'highest_grid_position': '1'}, 'sargeant': {'podiums': 'N/A', 'points': '0', 'grands_prix_entered': '10', 'world_championships': 'N/A', 'highest_race_finish': '11 (x1)', 'highest_grid_position': '14'}, 'alonso': {'podiums': '104', 'points': '2198', 'grands_prix_entered': '368', 'world_championships': '2', 'highest_race_finish': '1 (x32)', 'highest_grid_position': '1'}, 'leclerc': {'podiums': '26', 'points': '942', 'grands_prix_entered': '113', 'world_championships': 'N/A', 'highest_race_finish': '1 (x5)', 'highest_grid_position': '1'}, 'piastri': {'podiums': 'N/A', 'points': '17', 'grands_prix_entered': '10', 'world_championships': 'N/A', 'highest_race_finish': '4 (x1)', 'highest_grid_position': '3'}, 'stroll': {'podiums': '3', 'points': '238', 'grands_prix_entered': '132', 'world_championships': 'N/A', 'highest_race_finish': '3 (x3)', 'highest_grid_position': '1'}, 'bottas': {'podiums': '67', 'points': '1792', 'grands_prix_entered': '210', 'world_championships': 'N/A', 'highest_race_finish': '1 (x10)', 'highest_grid_position': '1'}, 'kevin_magnussen': {'podiums': '1', 'points': '185', 'grands_prix_entered': '152', 'world_championships': 'N/A', 'highest_race_finish': '2 (x1)', 'highest_grid_position': '4'}, 'ricciardo': {'podiums': '32', 'points': '1311', 'grands_prix_entered': '232', 'world_championships': 'N/A', 'highest_race_finish': '1 (x8)', 'highest_grid_position': '1'}, 'tsunoda': {'podiums': 'N/A', 'points': '46', 'grands_prix_entered': '54', 'world_championships': 'N/A', 'highest_race_finish': '4 (x1)', 'highest_grid_position': '7'}, 'gasly': {'podiums': '3', 'points': '348', 'grands_prix_entered': '118', 'world_championships': 'N/A', 'highest_race_finish': '1 (x1)', 'highest_grid_position': '2'}, 'norris': {'podiums': '7', 'points': '470', 'grands_prix_entered': '92', 'world_championships': 'N/A', 'highest_race_finish': '2 (x2)', 'highest_grid_position': '1'}, 'russell': {'podiums': '10', 'points': '376', 'grands_prix_entered': '92', 'world_championships': 'N/A', 'highest_race_finish': '1 (x1)', 'highest_grid_position': '1'}, 'ocon': {'podiums': '3', 'points': '395', 'grands_prix_entered': '121', 'world_championships': 'N/A', 'highest_race_finish': '1 (x1)', 'highest_grid_position': '3'}, 'sainz': {'podiums': '15', 'points': '865.5', 'grands_prix_entered': '173', 'world_championships': 'N/A', 'highest_race_finish': '1 (x1)', 'highest_grid_position': '1'}, 'zhou': {'podiums': 'N/A', 'points': '10', 'grands_prix_entered': '32', 'world_championships': 'N/A', 'highest_race_finish': '8 (x1)', 'highest_grid_position': '9'}}
-    driver_info = self.get_driver_information_from_urls(urls)
+    driver_info = {'max_verstappen': {'podiums': '87', 'points': '2266.5', 'grands_prix_entered': '173', 'world_championships': '2', 'highest_race_finish': '1 (x43)', 'highest_grid_position': '1'}, 'hamilton': {'podiums': '195', 'points': '4526.5', 'grands_prix_entered': '320', 'world_championships': '7', 'highest_race_finish': '1 (x103)', 'highest_grid_position': '1'}, 'albon': {'podiums': '2', 'points': '212', 'grands_prix_entered': '69', 'world_championships': 'N/A', 'highest_race_finish': '3 (x2)', 'highest_grid_position': '4'}, 'hulkenberg': {'podiums': 'N/A', 'points': '530', 'grands_prix_entered': '194', 'world_championships': 'N/A', 'highest_race_finish': '4 (x3)', 'highest_grid_position': '1'}, 'perez': {'podiums': '31', 'points': '1357', 'grands_prix_entered': '246', 'world_championships': 'N/A', 'highest_race_finish': '1 (x6)', 'highest_grid_position': '1'}, 'sargeant': {'podiums': 'N/A', 'points': '0', 'grands_prix_entered': '10', 'world_championships': 'N/A', 'highest_race_finish': '11 (x1)', 'highest_grid_position': '14'}, 'alonso': {'podiums': '104', 'points': '2198', 'grands_prix_entered': '368', 'world_championships': '2', 'highest_race_finish': '1 (x32)', 'highest_grid_position': '1'}, 'leclerc': {'podiums': '26', 'points': '942', 'grands_prix_entered': '113', 'world_championships': 'N/A', 'highest_race_finish': '1 (x5)', 'highest_grid_position': '1'}, 'piastri': {'podiums': 'N/A', 'points': '17', 'grands_prix_entered': '10', 'world_championships': 'N/A', 'highest_race_finish': '4 (x1)', 'highest_grid_position': '3'}, 'stroll': {'podiums': '3', 'points': '238', 'grands_prix_entered': '132', 'world_championships': 'N/A', 'highest_race_finish': '3 (x3)', 'highest_grid_position': '1'}, 'bottas': {'podiums': '67', 'points': '1792', 'grands_prix_entered': '210', 'world_championships': 'N/A', 'highest_race_finish': '1 (x10)', 'highest_grid_position': '1'}, 'kevin_magnussen': {'podiums': '1', 'points': '185', 'grands_prix_entered': '152', 'world_championships': 'N/A', 'highest_race_finish': '2 (x1)', 'highest_grid_position': '4'}, 'ricciardo': {'podiums': '32', 'points': '1311', 'grands_prix_entered': '232', 'world_championships': 'N/A', 'highest_race_finish': '1 (x8)', 'highest_grid_position': '1'}, 'tsunoda': {'podiums': 'N/A', 'points': '46', 'grands_prix_entered': '54', 'world_championships': 'N/A', 'highest_race_finish': '4 (x1)', 'highest_grid_position': '7'}, 'gasly': {'podiums': '3', 'points': '348', 'grands_prix_entered': '118', 'world_championships': 'N/A', 'highest_race_finish': '1 (x1)', 'highest_grid_position': '2'}, 'norris': {'podiums': '7', 'points': '470', 'grands_prix_entered': '92', 'world_championships': 'N/A', 'highest_race_finish': '2 (x2)', 'highest_grid_position': '1'}, 'russell': {'podiums': '10', 'points': '376', 'grands_prix_entered': '92', 'world_championships': 'N/A', 'highest_race_finish': '1 (x1)', 'highest_grid_position': '1'}, 'ocon': {'podiums': '3', 'points': '395', 'grands_prix_entered': '121', 'world_championships': 'N/A', 'highest_race_finish': '1 (x1)', 'highest_grid_position': '3'}, 'sainz': {'podiums': '15', 'points': '865.5', 'grands_prix_entered': '173', 'world_championships': 'N/A', 'highest_race_finish': '1 (x1)', 'highest_grid_position': '1'}, 'zhou': {'podiums': 'N/A', 'points': '10', 'grands_prix_entered': '32', 'world_championships': 'N/A', 'highest_race_finish': '8 (x1)', 'highest_grid_position': '9'}}
+    # driver_info = self.get_driver_information_from_urls(urls)
 
     all_completly_updated = True
     for key, value in driver_info.items():
+      print(key)
+      print(value)
       request = requests.patch(f'http://localhost:3000/api/drivers/{key}', json=value)
       if (request.status_code == 404 or request.status_code == 500):
         print(f'Error updating driver: {key}')
@@ -112,11 +110,8 @@ class DriverParser:
     return
 
 
-
-
-
-
-urls = ['https://www.formula1.com/en/drivers/max-verstappen.html', 
+urls =[
+      'https://www.formula1.com/en/drivers/max-verstappen.html', 
       'https://www.formula1.com/en/drivers/lewis-hamilton.html', 
       'https://www.formula1.com/en/drivers/alexander-albon.html',
       'https://www.formula1.com/en/drivers/nico-hulkenberg.html',
