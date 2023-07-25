@@ -146,7 +146,7 @@ urls =[
       'https://www.formula1.com/en/racing/2023/Belgium/Circuit.html',
       'https://www.formula1.com/en/racing/2023/Netherlands/Circuit.html',
       'https://www.formula1.com/en/racing/2023/Italy/Circuit.html',
-      'https://www.formula1.com/en/racing/2023/Singapore/Circuit.html',
+      # 'https://www.formula1.com/en/racing/2023/Singapore/Circuit.html',  this page does not have good info online: comes back as TBC 
       'https://www.formula1.com/en/racing/2023/Japan/Circuit.html',
       'https://www.formula1.com/en/racing/2023/Qatar/Circuit.html',
       'https://www.formula1.com/en/racing/2023/United_States/Circuit.html',
@@ -164,8 +164,3 @@ track_parser.track_update(urls)
 
 ## need to extract the track name to circuit name logic to the function track_name_to_circuit_id. right now it is in the get_track_information_from_urls function due to First and Second logic
 ## should be able to move this to the other and use Class variables as First and Second. Not 100% sure how to do this yet
-
-
-
-
-## need to update the database before this will work at this point due to not all tracks being in the database and having the required other fields
