@@ -5,7 +5,7 @@ import requests
 class TrackParser:
   def __init__(self, url):
     self.url = url
-  
+
   def track_name_to_circuit_id(self, track_name):
     match track_name:
       case 'bahrain2023':
@@ -69,8 +69,8 @@ class TrackParser:
 
       soup = BeautifulSoup(page.content, 'html.parser')
       track_name = soup.find('h1').text.strip().lower().replace(' ', '_')
-      
-      ## there are two united_states2023 tracks and the first is 
+
+      ## there are two united_states2023 tracks and the first is
 
       if track_name == 'united_states2023' and first:
         circuit_id = 'miami'
@@ -82,12 +82,13 @@ class TrackParser:
         circuit_id = 'vegas'
       else:
         circuit_id = self.track_name_to_circuit_id(track_name)
-      print(circuit_id)
+
 
       official_track_name_all_lowercase = soup.find('p', class_='f1--s').text.strip().lower()
       words = official_track_name_all_lowercase.split(" ")
       modified_words = [word.capitalize() for word in words]
       official_track_name = " ".join(modified_words)
+      print(official_track_name)
 
 
       # Find the driver's headers
@@ -137,7 +138,7 @@ urls =[
       'https://www.formula1.com/en/racing/2023/Australia/Circuit.html',
       'https://www.formula1.com/en/racing/2023/Azerbaijan/Circuit.html',
       'https://www.formula1.com/en/racing/2023/Miami/Circuit.html',
-      'https://www.formula1.com/en/racing/2023/Monaco/Circuit.html', 
+      'https://www.formula1.com/en/racing/2023/Monaco/Circuit.html',
       'https://www.formula1.com/en/racing/2023/Spain/Circuit.html',
       'https://www.formula1.com/en/racing/2023/Canada/Circuit.html',
       'https://www.formula1.com/en/racing/2023/Austria/Circuit.html',
@@ -153,7 +154,7 @@ urls =[
       'https://www.formula1.com/en/racing/2023/Mexico/Circuit.html',
       'https://www.formula1.com/en/racing/2023/Brazil/Circuit.html',
       'https://www.formula1.com/en/racing/2023/Las_Vegas/Circuit.html',
-      'https://www.formula1.com/en/racing/2023/United_Arab_Emirates/Circuit.html',      
+      'https://www.formula1.com/en/racing/2023/United_Arab_Emirates/Circuit.html',
       ]
 
 
