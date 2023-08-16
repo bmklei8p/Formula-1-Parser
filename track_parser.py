@@ -91,7 +91,6 @@ class TrackParser:
 
       # Find circuit name
       circuit_name = soup.find('span', class_='d-none d-lg-block').text.strip()
-      print(circuit_name)
 
 
       # Find the driver's headers
@@ -114,7 +113,6 @@ class TrackParser:
           if key == 'lap_record':
             break
       result[circuit_id] = h
-    print(result)
     return result
 
   def track_update(self, urls):
@@ -174,8 +172,6 @@ track_parser.track_update(urls)
 
 
 ## need to extract the track name to circuit name logic to the function track_name_to_circuit_id. right now it is in the get_track_information_from_urls function due to First and Second logic
-## should be able to move this to the other and use Class variables as First and Second. Not 100% sure how to do this yet
-
 
 ## possible issues: losail doesn't have any info on the website. comes back as null null (null) for lap record.  - verified they do not have the info
 ## possible issues: singapore does not have any info on the website. comes back as TBC for lap record. - verified they do not have the info
