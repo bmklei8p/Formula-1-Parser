@@ -51,6 +51,52 @@ class DriverParser:
       case _:
         driver = 'unknown'
     return driver
+  
+  def driver_id_to_driver_twitter_handle(self, driver_name):
+    match driver_name:
+      case 'max_verstappen':
+        driver = 'Max33Verstappen'
+      case 'hamilton':
+        driver = 'LewisHamilton'
+      case 'albon':
+        driver = 'alex_albon'
+      case 'hulkenberg':
+        driver = 'HulkHulkenberg'
+      case 'perez':
+        driver = 'SChecoPerez'
+      case 'sargeant':
+        driver = 'LoganSargeant'
+      case 'alonso':
+        driver = 'alo_oficial'
+      case 'leclerc': 
+        driver = 'Charles_Leclerc'
+      case 'piastri':
+        driver = 'OscarPiastri'
+      case 'stroll':  
+        driver = 'lance_stroll'
+      case 'bottas': 
+        driver = 'ValtteriBottas'
+      case 'kevin_magnussen':
+        driver = 'KevinMagnussen'
+      case 'ricciardo':
+        driver = 'danielricciardo'
+      case 'tsunoda':  
+        driver = 'yukitsunoda07'
+      case 'gasly':
+        driver = 'PierreGASLY'
+      case 'norris':  
+        driver = 'LandoNorris'
+      case 'russell':  
+        driver = 'GeorgeRussell63'
+      case 'ocon':  
+        driver = 'OconEsteban'
+      case 'sainz':  
+        driver = 'Carlossainz55'
+      case 'zhou':
+        driver = 'ZhouGuanyu24'
+      case _:
+        driver = 'unknown'
+    return driver
 
   def get_driver_information_from_urls(self, urls):
     result = {}
@@ -80,6 +126,7 @@ class DriverParser:
 
       # Create a dictionary of the driver's stats
       h = {}
+      h["twitter_handle"] = self.driver_id_to_driver_twitter_handle(driver)
       for index, driverObj in enumerate(driver_headers):
           key = driverObj.text.strip().replace(' ', '_').lower()
           value = driver_stats[index].text.strip()
@@ -87,12 +134,13 @@ class DriverParser:
             h[key] = value
       result[driver] = h
 
+    # print(result)
     return result
 
   def driver_update(self, urls):
     # hard coded data to avoid scrappping while building
-    # driver_info = {'max_verstappen': {'podiums': '87', 'points': '2266.5', 'grands_prix_entered': '173', 'world_championships': '2', 'highest_race_finish': '1 (x43)', 'highest_grid_position': '1'}, 'hamilton': {'podiums': '195', 'points': '4526.5', 'grands_prix_entered': '320', 'world_championships': '7', 'highest_race_finish': '1 (x103)', 'highest_grid_position': '1'}, 'albon': {'podiums': '2', 'points': '212', 'grands_prix_entered': '69', 'world_championships': 'N/A', 'highest_race_finish': '3 (x2)', 'highest_grid_position': '4'}, 'hulkenberg': {'podiums': 'N/A', 'points': '530', 'grands_prix_entered': '194', 'world_championships': 'N/A', 'highest_race_finish': '4 (x3)', 'highest_grid_position': '1'}, 'perez': {'podiums': '31', 'points': '1357', 'grands_prix_entered': '246', 'world_championships': 'N/A', 'highest_race_finish': '1 (x6)', 'highest_grid_position': '1'}, 'sargeant': {'podiums': 'N/A', 'points': '0', 'grands_prix_entered': '10', 'world_championships': 'N/A', 'highest_race_finish': '11 (x1)', 'highest_grid_position': '14'}, 'alonso': {'podiums': '104', 'points': '2198', 'grands_prix_entered': '368', 'world_championships': '2', 'highest_race_finish': '1 (x32)', 'highest_grid_position': '1'}, 'leclerc': {'podiums': '26', 'points': '942', 'grands_prix_entered': '113', 'world_championships': 'N/A', 'highest_race_finish': '1 (x5)', 'highest_grid_position': '1'}, 'piastri': {'podiums': 'N/A', 'points': '17', 'grands_prix_entered': '10', 'world_championships': 'N/A', 'highest_race_finish': '4 (x1)', 'highest_grid_position': '3'}, 'stroll': {'podiums': '3', 'points': '238', 'grands_prix_entered': '132', 'world_championships': 'N/A', 'highest_race_finish': '3 (x3)', 'highest_grid_position': '1'}, 'bottas': {'podiums': '67', 'points': '1792', 'grands_prix_entered': '210', 'world_championships': 'N/A', 'highest_race_finish': '1 (x10)', 'highest_grid_position': '1'}, 'kevin_magnussen': {'podiums': '1', 'points': '185', 'grands_prix_entered': '152', 'world_championships': 'N/A', 'highest_race_finish': '2 (x1)', 'highest_grid_position': '4'}, 'ricciardo': {'podiums': '32', 'points': '1311', 'grands_prix_entered': '232', 'world_championships': 'N/A', 'highest_race_finish': '1 (x8)', 'highest_grid_position': '1'}, 'tsunoda': {'podiums': 'N/A', 'points': '46', 'grands_prix_entered': '54', 'world_championships': 'N/A', 'highest_race_finish': '4 (x1)', 'highest_grid_position': '7'}, 'gasly': {'podiums': '3', 'points': '348', 'grands_prix_entered': '118', 'world_championships': 'N/A', 'highest_race_finish': '1 (x1)', 'highest_grid_position': '2'}, 'norris': {'podiums': '7', 'points': '470', 'grands_prix_entered': '92', 'world_championships': 'N/A', 'highest_race_finish': '2 (x2)', 'highest_grid_position': '1'}, 'russell': {'podiums': '10', 'points': '376', 'grands_prix_entered': '92', 'world_championships': 'N/A', 'highest_race_finish': '1 (x1)', 'highest_grid_position': '1'}, 'ocon': {'podiums': '3', 'points': '395', 'grands_prix_entered': '121', 'world_championships': 'N/A', 'highest_race_finish': '1 (x1)', 'highest_grid_position': '3'}, 'sainz': {'podiums': '15', 'points': '865.5', 'grands_prix_entered': '173', 'world_championships': 'N/A', 'highest_race_finish': '1 (x1)', 'highest_grid_position': '1'}, 'zhou': {'podiums': 'N/A', 'points': '10', 'grands_prix_entered': '32', 'world_championships': 'N/A', 'highest_race_finish': '8 (x1)', 'highest_grid_position': '9'}}
-    driver_info = self.get_driver_information_from_urls(urls)
+    driver_info = {'max_verstappen': {'twitter_handle': 'Max33Verstappen', 'podiums': '89', 'points': '2325.5', 'grands_prix_entered': '175', 'world_championships': '2', 'highest_race_finish': '1 (x45)', 'highest_grid_position': '1'}, 'hamilton': {'twitter_handle': 'LewisHamilton', 'podiums': '195', 'points': '4553.5', 'grands_prix_entered': '322', 'world_championships': '7', 'highest_race_finish': '1 (x103)', 'highest_grid_position': '1'}, 'albon': {'twitter_handle': 'alex_albon', 'podiums': '2', 'points': '212', 'grands_prix_entered': '71', 'world_championships': 'N/A', 'highest_race_finish': '3 (x2)', 'highest_grid_position': '4'}, 'hulkenberg': {'twitter_handle': 'HulkHulkenberg', 'podiums': 'N/A', 'points': '530', 'grands_prix_entered': '196', 'world_championships': 'N/A', 'highest_race_finish': '4 (x3)', 'highest_grid_position': '1'}, 'perez': {'twitter_handle': 'SChecoPerez', 'podiums': '33', 'points': '1390', 'grands_prix_entered': '248', 'world_championships': 'N/A', 'highest_race_finish': '1 (x6)', 'highest_grid_position': '1'}, 'sargeant': {'twitter_handle': 'LoganSargeant', 'podiums': 'N/A', 'points': '0', 'grands_prix_entered': '12', 'world_championships': 'N/A', 'highest_race_finish': '11 (x1)', 'highest_grid_position': '14'}, 'alonso': {'twitter_handle': 'alo_oficial', 'podiums': '104', 'points': '2210', 'grands_prix_entered': '370', 'world_championships': '2', 'highest_race_finish': '1 (x32)', 'highest_grid_position': '1'}, 'leclerc': {'twitter_handle': 'Charles_Leclerc', 'podiums': '27', 'points': '967', 'grands_prix_entered': '115', 'world_championships': 'N/A', 'highest_race_finish': '1 (x5)', 'highest_grid_position': '1'}, 'piastri': {'twitter_handle': 'OscarPiastri', 'podiums': 'N/A', 'points': '34', 'grands_prix_entered': '12', 'world_championships': 'N/A', 'highest_race_finish': '4 (x1)', 'highest_grid_position': '3'}, 'stroll': {'twitter_handle': 'lance_stroll', 'podiums': '3', 'points': '241', 'grands_prix_entered': '134', 'world_championships': 'N/A', 'highest_race_finish': '3 (x3)', 'highest_grid_position': '1'}, 'bottas': {'twitter_handle': 'ValtteriBottas', 'podiums': '67', 'points': '1792', 'grands_prix_entered': '212', 'world_championships': 'N/A', 'highest_race_finish': '1 (x10)', 'highest_grid_position': '1'}, 'kevin_magnussen': {'twitter_handle': 'KevinMagnussen', 'podiums': '1', 'points': '185', 'grands_prix_entered': '154', 'world_championships': 'N/A', 'highest_race_finish': '2 (x1)', 'highest_grid_position': '4'}, 'ricciardo': {'twitter_handle': 'danielricciardo', 'podiums': '32', 'points': '1311', 'grands_prix_entered': '234', 'world_championships': 'N/A', 'highest_race_finish': '1 (x8)', 'highest_grid_position': '1'}, 'tsunoda': {'twitter_handle': 'yukitsunoda07', 'podiums': 'N/A', 'points': '47', 'grands_prix_entered': '56', 'world_championships': 'N/A', 'highest_race_finish': '4 (x1)', 'highest_grid_position': '7'}, 'gasly': {'twitter_handle': 'PierreGASLY', 'podiums': '3', 'points': '354', 'grands_prix_entered': '120', 'world_championships': 'N/A', 'highest_race_finish': '1 (x1)', 'highest_grid_position': '2'}, 'norris': {'twitter_handle': 'LandoNorris', 'podiums': '8', 'points': '497', 'grands_prix_entered': '94', 'world_championships': 'N/A', 'highest_race_finish': '2 (x3)', 'highest_grid_position': '1'}, 'russell': {'twitter_handle': 'GeorgeRussell63', 'podiums': '10', 'points': '393', 'grands_prix_entered': '94', 'world_championships': 'N/A', 'highest_race_finish': '1 (x1)', 'highest_grid_position': '1'}, 'ocon': {'twitter_handle': 'OconEsteban', 'podiums': '3', 'points': '399', 'grands_prix_entered': '123', 'world_championships': 'N/A', 'highest_race_finish': '1 (x1)', 'highest_grid_position': '3'}, 'sainz': {'twitter_handle': 'Carlossainz55', 'podiums': '15', 'points': '874.5', 'grands_prix_entered': '175', 'world_championships': 'N/A', 'highest_race_finish': '1 (x1)', 'highest_grid_position': '1'}, 'zhou': {'twitter_handle': 'ZhouGuanyu24', 'podiums': 'N/A', 'points': '10', 'grands_prix_entered': '34', 'world_championships': 'N/A', 'highest_race_finish': '8 (x1)', 'highest_grid_position': '5'}}
+    # driver_info = self.get_driver_information_from_urls(urls)
 
     all_completly_updated = True
     for key, value in driver_info.items():
